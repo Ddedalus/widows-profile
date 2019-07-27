@@ -1,5 +1,5 @@
 Write-Output "Installing VS Code extensions"
-$extensions = Get-Content -Path "H:\Windows\scripts\code_extensions.txt"
+$extensions = Get-Content -Path "H:\Windows\windows-profile\code_extensions.txt"
 $codeExe = "H:\Windows\VSCode\bin\code"
 $extTarget = "$env:userprofile\.vscode\extensions"
 foreach ($ext in $extensions) {

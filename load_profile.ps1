@@ -2,7 +2,7 @@ Write-Output "Copying APPDATA files"
 
 $adPath = "C:\users\u1731027\AppData\"
 $storePath = "H:\Windows\AppData\"
-$adSubdirs = Get-Content -Path "H:\Windows\scripts\app_data_list.txt"
+$adSubdirs = Get-Content -Path "H:\Windows\windows-profile\app_data_list.txt"
 
 foreach ($dir in $adSubdirs) {
     $toDir = Join-Path $adPath "$dir"
