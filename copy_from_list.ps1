@@ -30,10 +30,14 @@ foreach ($item in $cfg) {
 
     # initialize exclude lists with empty lists which will evaluate to false if
     # asked for in an if statement anyway...
-    if (-Not($item["exclude_file"])) {
+    if (-Not($item["exclude_file"])){
+        $item["exclude_file"] = @($item["exclude_file"])
+    } else {
         $item["exclude_file"] =  @()
     }
-    if (-Not($item["exclude_dir"])) {
+    if ($item["exclude_dir"]){
+        $item["exclude_dir"] = @($item["exclude_dir"])
+    } else {
         $item["exclude_dir"] = @()
     }
 
@@ -47,14 +51,14 @@ foreach ($item in $cfg) {
             $toPath = Join-Path $storePath $glob["path"]
             $fromPath = Join-Path $localPath $glob["path"]
             if ($glob["exclude_file"]) {
-                $e_file += $glob["exclude_file"]
+                $e_file += @($glob["exclude_file"])
             }
             if ($glob["exclude_dir"]) {
-                $e_dir += $glob["exclude_dir"]
+                $e_dir += @($glob["exclude_dir"])
             }
         }
         Write-Output "Copying from $fromPath to $toPath"
-        Write-Output "without [$($e_file -join ', ')] and [$e_dir]"
+        Write-Output "without [$e_file] and [$e_dir]"
         
         if (-Not(Test-Path "$fromPath")) {
             Write-Output "$fromPath not found!"
@@ -69,7 +73,9 @@ foreach ($item in $cfg) {
         if ($Load) {
             robocopy "$fromPath" "$toPath" /mir /MT:4 /w:10 /r:3 /l /ns /nc /ndl
         } else {
-            robocopy "$fromPath" "$toPath" /xd "$($e_dir -join " ")" /xf "$($e_file -join " ")" /MT:4 /w:10 /r:3 /l /ns /nc /ndl
+            $ed = $e_dir | % {"""$_"""}
+            $ef = $e_file | % {"""$_"""}
+            robocopy "$fromPath" "$toPath" /xd $ed /xf $ef /MT:4 /w:10 /r:3 /l /ns /nc /ndl
         }
         Write-Output "$fromPath copied to $toPath"
 
