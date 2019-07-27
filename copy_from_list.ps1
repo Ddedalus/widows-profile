@@ -3,7 +3,9 @@ param (
     [switch]$Load = $false,
     [switch]$Store = $false
     # [string]$password = $( Read-Host "Input password, please" )
- )
+    )
+    
+. .\json_converter.ps1
 
 if ( -Not($Load -Or $Store) -Or ($Load -And $Store) ) {
     throw "Please provide EITHER -Load or -Store"
@@ -12,6 +14,7 @@ if ( -Not($Load -Or $Store) -Or ($Load -And $Store) ) {
 Write-Output "Reading json file: $List"
 $file = Get-Content -Path "$List" -Raw
 $cfg =  ConvertFrom-Json -InputObject $file
+$cfg = psobj_to_hashmap($cfg)
 
 # foreach ($item in $cfg) {
 #     $localPath = $item.local
