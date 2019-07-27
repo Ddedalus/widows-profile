@@ -1,0 +1,33 @@
+[
+    {
+        "local": "C:\\users\\u1731027\\AppData",
+        "store": "H:\\Windows\\AppData",
+        "exclude_file": ["*lock*"],
+        "exclude_dir": ["**cache*"],
+        "dirs": [
+            {
+                "path": "Roaming\\Code",
+                "overwrite": false,
+                "exclude_dir": ["gpucache"]
+            },
+            {
+                "path": "Roaming\\Visual Studio Code",
+                "overwrite": false
+            },
+            {
+                "path": "Roaming\\.gitkraken",
+                "overwrite": false
+            }
+        ]
+    },
+    {
+        "local": "C:\\users\\u1731027",
+        "store": "H:\\Windows\\user",
+        
+        "dirs": [
+            {
+                "path": ".vscode"
+            }
+        ]
+    }
+]
