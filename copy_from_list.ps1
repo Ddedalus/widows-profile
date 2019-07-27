@@ -39,7 +39,7 @@ foreach ($item in $cfg) {
 
     foreach ($glob in $item["dirs"]) {
         $e_file = $item["exclude_file"]
-        $e_dir  = $item["exclude_item"]
+        $e_dir  = $item["exclude_dir"]
         if ($Load) {
             $fromPath = Join-Path $storePath $glob["path"]
             $toPath = Join-Path $localPath $glob["path"]
@@ -56,32 +56,38 @@ foreach ($item in $cfg) {
         Write-Output "Copying from $fromPath to $toPath"
         Write-Output "without [$($e_file -join ', ')] and [$e_dir]"
         
-        # if (Test-Path "$fromDir") {
-        #         Remove-Item "$toDir" -Recurse -ErrorAction Ignore
-        #     if(-Not(Test-Path "$toDir")){
-        #         New-Item "$toDir" -ItemType Directory
-        #     }
-        #     robocopy "$fromDir" "$toDir" /mir
-        #     Write-Output "$fromDir copied to $toDir"
-        # }else {
-        #     Write-Output "$fromDir not found!"
-        # }
+        if (-Not(Test-Path "$fromPath")) {
+            Write-Output "$fromPath not found!"
+            continue
+        }
+        if ($glob["overwrite"]) {
+            Remove-Item "$toPath" -Recurse -ErrorAction Ignore
+        }
+        if(-Not(Test-Path "$toPath")){
+            New-Item "$toPath" -ItemType Directory
+        }
+        if ($Load) {
+            robocopy "$fromPath" "$toPath" /mir /MT:4 /w:10 /r:3 /l /ns /nc /ndl
+        } else {
+            robocopy "$fromPath" "$toPath" /xd "$($e_dir -join " ")" /xf "$($e_file -join " ")" /MT:4 /w:10 /r:3 /l /ns /nc /ndl
+        }
+        Write-Output "$fromPath copied to $toPath"
 
     }
 }
 
 # foreach ($dir in $adSubdirs) {
-#     $toDir = Join-Path $localPath "$dir"
-#     $fromDir = Join-Path $storePath "$dir"
-#     if (Test-Path "$fromDir") {
-#         Remove-Item "$toDir" -Recurse -ErrorAction Ignore
-#         if(-Not(Test-Path "$toDir")){
-#             New-Item "$toDir" -ItemType Directory
+#     $toPath = Join-Path $localPath "$dir"
+#     $fromPath = Join-Path $storePath "$dir"
+#     if (Test-Path "$fromPath") {
+#         Remove-Item "$toPath" -Recurse -ErrorAction Ignore
+#         if(-Not(Test-Path "$toPath")){
+#             New-Item "$toPath" -ItemType Directory
 #         }
-#         robocopy "$fromDir" "$toDir" /mir
-#         Write-Output "$fromDir copied to $toDir"
+#         robocopy "$fromPath" "$toPath" /mir
+#         Write-Output "$fromPath copied to $toPath"
 #     }else {
-#         Write-Output "$fromDir not found!"
+#         Write-Output "$fromPath not found!"
 #     }
 # }
 

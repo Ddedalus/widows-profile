@@ -2,7 +2,7 @@
     {
         "local": "C:\\users\\u1731027\\AppData",
         "store": "H:\\Windows\\AppData",
-        "exclude_file": ["*lock*"],
+        "exclude_file": ["*lock*", "*.log"],
         "exclude_dir": ["**cache*"],
         "dirs": [
             {
