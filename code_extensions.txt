@@ -1,0 +1,3 @@
+ms-python.python
+njpwerner.autodocstring
+vscodevim.vim

@@ -1,0 +1,1 @@
+@echo "Logoff">> H:\Windows\test.txt

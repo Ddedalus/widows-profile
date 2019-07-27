@@ -1,0 +1,3 @@
+Roaming\Code
+Roaming\Visual Studio Code
+Roaming\.gitkraken
