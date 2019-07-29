@@ -1,33 +1,48 @@
 [
     {
         "local": "C:\\users\\u1731027\\AppData",
-        "store": "H:\\Windows\\AppData",
-        "exclude_file": ["*lock*", "*.log"],
-        "exclude_dir": ["**cache*"],
+        "store": "H:\\Windows\\profile\\AppData",
+        "exclude_file": [
+            "*lock*",
+            "*.log"
+        ],
+        "exclude_dir": [
+            "*cache*",
+            "logs"
+        ],
         "dirs": [
             {
                 "path": "Roaming\\Code",
-                "overwrite": false,
-                "exclude_dir": ["gpucache"]
+                "exclude_dir": [
+                    "blob_storage",
+                    "Backups",
+                    "GPUCache"
+                ],
+                "exclude_file": [
+                    "Cookies*"
+                ]
             },
             {
-                "path": "Roaming\\Visual Studio Code",
-                "overwrite": false
+                "path": "Roaming\\Visual Studio Code"
             },
             {
-                "path": "Roaming\\.gitkraken",
-                "overwrite": false
+                "path": "Roaming\\.gitkraken"
             }
         ]
     },
     {
         "local": "C:\\users\\u1731027",
-        "store": "H:\\Windows\\user",
-        
+        "store": "H:\\Windows\\profile\\User",
+        "exclude_dir": [
+            "*cache*",
+            "*log*"
+        ],
         "dirs": [
             {
                 "path": ".vscode",
-                "exclude_dir": ["somedir"]
+                "exclude_dir": [
+                    "out"
+                ]
             }
         ]
     }

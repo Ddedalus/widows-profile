@@ -67,11 +67,11 @@ foreach ($item in $cfg) {
             New-Item "$toPath" -ItemType Directory
         }
         if ($Load) {
-            robocopy "$fromPath" "$toPath" /mir /MT:4 /w:10 /r:3 /l /ns /nc /ndl
+            robocopy "$fromPath" "$toPath" /mir /MT:4 /w:10 /r:3 /ns /nc /ndl
         } else {
             $ed = $e_dir | ForEach-Object {"$_"}
             $ef = $e_file | ForEach-Object {"$_"}
-            robocopy "$fromPath" "$toPath" /xd $ed /xf $ef /MT:4 /w:10 /r:3 /l /ns /nc /ndl
+            robocopy "$fromPath" "$toPath" /mir /xd $ed /xf $ef /MT:4 /w:10 /r:3 /ns /nc /ndl
         }
         Write-Host "$fromPath copied to $toPath"
 
