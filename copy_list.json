@@ -29,21 +29,5 @@
                 "path": "Roaming\\.gitkraken"
             }
         ]
-    },
-    {
-        "local": "C:\\users\\u1731027",
-        "store": "H:\\Windows\\profile\\User",
-        "exclude_dir": [
-            "*cache*",
-            "*log*"
-        ],
-        "dirs": [
-            {
-                "path": ".vscode",
-                "exclude_dir": [
-                    "out"
-                ]
-            }
-        ]
     }
 ]
