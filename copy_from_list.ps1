@@ -11,7 +11,7 @@ if ( -Not($Load -Or $Store) -Or ($Load -And $Store) ) {
     throw "Please provide EITHER -Load or -Store"
 }
 
-Write-Output "Reading json file: $List"
+Write-Host "Reading json file: $List"
 $file = Get-Content -Path "$List" -Raw
 $cfg =  ConvertFrom-Json -InputObject $file
 $cfg = psobj_to_hashmap($cfg)
@@ -20,11 +20,11 @@ foreach ($item in $cfg) {
     $localPath = $item["local"]
     $storePath = $item["store"]
     if (-Not(Test-Path "$localPath")){
-        Write-Output "Can't find local: $localPath"
+        Write-Host "Can't find local: $localPath"
         continue
     }
     if (-Not(Test-Path "$storePath")){
-        Write-Output "Can't find store: $storePath"
+        Write-Host "Can't find store: $storePath"
         continue
     }
 
@@ -57,11 +57,11 @@ foreach ($item in $cfg) {
                 $e_dir += @($glob["exclude_dir"])
             }
         }
-        Write-Output "Copying from $fromPath to $toPath"
-        Write-Output "without [$e_file] and [$e_dir]"
+        Write-Host "Copying from $fromPath to $toPath"
+        Write-Host "without [$e_file] and [$e_dir]"
         
         if (-Not(Test-Path "$fromPath")) {
-            Write-Output "$fromPath not found!"
+            Write-Host "$fromPath not found!"
             continue
         }
         if ($glob["overwrite"]) {
@@ -77,7 +77,7 @@ foreach ($item in $cfg) {
             $ef = $e_file | % {"""$_"""}
             robocopy "$fromPath" "$toPath" /xd $ed /xf $ef /MT:4 /w:10 /r:3 /l /ns /nc /ndl
         }
-        Write-Output "$fromPath copied to $toPath"
+        Write-Host "$fromPath copied to $toPath"
 
     }
 }
@@ -91,10 +91,10 @@ foreach ($item in $cfg) {
 #             New-Item "$toPath" -ItemType Directory
 #         }
 #         robocopy "$fromPath" "$toPath" /mir
-#         Write-Output "$fromPath copied to $toPath"
+#         Write-Host "$fromPath copied to $toPath"
 #     }else {
-#         Write-Output "$fromPath not found!"
+#         Write-Host "$fromPath not found!"
 #     }
 # }
 
-#     Write-Output "Local: $($item["local"])"
+#     Write-Host "Local: $($item["local"])"
