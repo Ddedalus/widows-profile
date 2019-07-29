@@ -1,0 +1,33 @@
+[
+    {
+        "local": "C:\\users\\u1731027\\AppData",
+        "store": "H:\\Windows\\profile\\AppData",
+        "exclude_file": [
+            "*lock*",
+            "*.log"
+        ],
+        "exclude_dir": [
+            "*cache*",
+            "logs"
+        ],
+        "dirs": [
+            {
+                "path": "Roaming\\Code",
+                "exclude_dir": [
+                    "blob_storage",
+                    "Backups",
+                    "GPUCache"
+                ],
+                "exclude_file": [
+                    "Cookies*"
+                ]
+            },
+            {
+                "path": "Roaming\\Visual Studio Code"
+            },
+            {
+                "path": "Roaming\\.gitkraken"
+            }
+        ]
+    }
+]
