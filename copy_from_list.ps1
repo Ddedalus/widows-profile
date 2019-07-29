@@ -31,13 +31,9 @@ foreach ($item in $cfg) {
     # initialize exclude lists with empty lists which will evaluate to false if
     # asked for in an if statement anyway...
     if (-Not($item["exclude_file"])){
-        $item["exclude_file"] = @($item["exclude_file"])
-    } else {
         $item["exclude_file"] =  @()
     }
-    if ($item["exclude_dir"]){
-        $item["exclude_dir"] = @($item["exclude_dir"])
-    } else {
+    if (-Not($item["exclude_dir"])){
         $item["exclude_dir"] = @()
     }
 
@@ -73,8 +69,8 @@ foreach ($item in $cfg) {
         if ($Load) {
             robocopy "$fromPath" "$toPath" /mir /MT:4 /w:10 /r:3 /l /ns /nc /ndl
         } else {
-            $ed = $e_dir | % {"""$_"""}
-            $ef = $e_file | % {"""$_"""}
+            $ed = $e_dir | ForEach-Object {"$_"}
+            $ef = $e_file | ForEach-Object {"$_"}
             robocopy "$fromPath" "$toPath" /xd $ed /xf $ef /MT:4 /w:10 /r:3 /l /ns /nc /ndl
         }
         Write-Host "$fromPath copied to $toPath"
